@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yanghao</title>
+
+    <!-- Fonts: Roboto (Google Standard) + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --heading-color: #111111;
+            --link-color: #007bff;
+            --meta-color: #666666;
+            --border-color: #eeeeee;
+            --tag-bg: #f5f5f5;
+            --tag-text: #555555;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #d0d0d0;
+            --heading-color: #ffffff;
+            --link-color: #58a6ff;
+            --meta-color: #888888;
+            --border-color: #333333;
+            --tag-bg: #1e1e1e;
+            --tag-text: #aaaaaa;
+        }
+
+        /* Reset & Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 36px;
+            color: var(--heading-color);
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        .chinese-name {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--meta-color);
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--heading-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header Layout */
+        header {
+            margin-bottom: 40px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Center vertically */
+            margin-bottom: 20px;
+        }
+
+        /* Name Block */
+        .name-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            /* Remove fixed height to let icons define space */
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            /* Increased gap for larger icons */
+        }
+
+        .social-icons a {
+            color: var(--meta-color);
+            display: flex;
+            align-items: center;
+            transition: color 0.2s;
+        }
+
+        .social-icons a:hover {
+            color: var(--heading-color);
+        }
+
+        .social-icons svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Divider adjustment for larger icons */
+        .header-actions .vertical-divider {
+            width: 1px;
+            height: 30px;
+            background-color: var(--border-color);
+        }
+
+        .theme-toggle-btn svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .header-separator {
+            width: 100%;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 20px auto 40px auto;
+            /* Centered with spacing */
+        }
+
+        /* Bio Row: Text + Photo */
+        .bio-row {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 600px) {
+            .bio-row {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                /* Vertically center bio with photo */
+            }
+        }
+
+        .bio-text {
+            flex: 1;
+        }
+
+        .profile-photo {
+            width: 220px;
+            /* Increased size as requested */
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Projects List */
+        .project-item {
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .project-content h3 a {
+            color: var(--heading-color);
+        }
+
+        .project-desc {
+            font-size: 15px;
+            color: var(--text-color);
+            margin-bottom: 12px;
+        }
+
+        /* Tags below description */
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 12px;
+            font-family: 'Inter', monospace;
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        /* Toolkit - Vertical List */
+        .toolkit-list {
+            list-style: none;
+        }
+
+        .toolkit-item {
+            display: flex;
+            margin-bottom: 15px;
+            font-size: 15px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .toolkit-item:last-child {
+            border-bottom: none;
+        }
+
+        .toolkit-label {
+            width: 120px;
+            font-weight: 600;
+            color: var(--heading-color);
+            flex-shrink: 0;
+        }
+
+        .toolkit-value {
+            color: var(--text-color);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: left;
+            font-size: 13px;
+            color: var(--meta-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--meta-color);
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--heading-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <!-- Top Row: Name Block + Actions -->
+        <div class="header-top">
+            <div class="name-block">
+                <h1>Hao YANG <span class="chinese-name">杨 豪</span></h1>
+            </div>
+
+            <div class="header-actions">
+                <div class="social-icons">
+                    <!-- Telegram -->
+                    <a href="https://t.me/Ethoung" target="_blank" aria-label="Telegram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </a>
+                    <!-- GitHub -->
+                    <a href="https://github.com/sanyBet" target="_blank" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                            </path>
+                        </svg>
+                    </a>
+                    <!-- X / Twitter -->
+                    <a href="https://x.com/Hyang1999Neil" target="_blank" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Vertical Divider between socials and theme toggle -->
+                <div class="vertical-divider"></div>
+
+                <!-- Dark Mode Toggle -->
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Separator Line -->
+        <div class="header-separator"></div>
+
+        <!-- Bio + Photo Row -->
+        <div class="bio-row">
+            <div class="bio-text">
+                <h1>About</h1>
+                <p><strong>Focus: Web3 Security / AI Agent / Quant Trading</strong></p>
+                <p>
+                    I graduated from East China Normal University (ECNU).
+                </p>
+                <p>
+                    Previously, I worked at the <strong>Shanghai QiZhi Institute</strong>.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Full-Stack Engineer</span>
+                    <span class="tag">Quant Trader</span>
+                    <span class="tag">Web3 Player</span>
+                </div>
+            </div>
+            <img src="./image/avator.jpg" alt="Yanghao" class="profile-photo">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <section>
+            <h2>Projects</h2>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <h3><a href="#">Polymarket Monitor</a></h3>
+                    <p class="project-desc">A cross-market arbitrage and event monitoring system for prediction markets.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Quant</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">WebSocket</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <h3><a href="#">Blockchain Edu Platform</a></h3>
+                    <p class="project-desc">An interactive simulation platform designed to visualize Bitcoin and
+                        Ethereum on-chain data logic.</p>
+                    <div class="project-tags">
+                        <span class="tag">Web3</span>
+                        <span class="tag">Visualization</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <h3><a href="#">DeFi Yield Aggregator</a></h3>
+                    <p class="project-desc">Smart contract based protocol optimizing yield farming strategies across
+                        multiple chains.</p>
+                    <div class="project-tags">
+                        <span class="tag">Web3</span>
+                        <span class="tag">Solidity</span>
+                        <span class="tag">DeFi</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <h3><a href="#">Crypto Sentiment Bot</a></h3>
+                    <p class="project-desc">Automated trading signal generator analyzing social media sentiment using
+                        NLP models.</p>
+                    <div class="project-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Quant</span>
+                        <span class="tag">NLP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <h3><a href="#">Local RAG Assistant</a></h3>
+                    <p class="project-desc">Personal knowledge base assistant leveraging local LLMs for privacy-first
+                        document analysis.</p>
+                    <div class="project-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">LangChain</span>
+                        <span class="tag">Local LLM</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Toolkit</h2>
+            <ul class="toolkit-list">
+                <li class="toolkit-item">
+                    <span class="toolkit-label">Languages</span>
+                    <span class="toolkit-value">Python, JavaScript, TypeScript, Solidity, Go</span>
+                </li>
+                <li class="toolkit-item">
+                    <span class="toolkit-label">Web3</span>
+                    <span class="toolkit-value">Hardhat, Foundry, Ethers.js, Wagmi</span>
+                </li>
+                <li class="toolkit-item">
+                    <span class="toolkit-label">AI & Data</span>
+                    <span class="toolkit-value">PyTorch, LangChain, Pandas, Hugging Face</span>
+                </li>
+                <li class="toolkit-item">
+                    <span class="toolkit-label">Web</span>
+                    <span class="toolkit-value">React, Next.js, Tailwind CSS</span>
+                </li>
+                <li class="toolkit-item">
+                    <span class="toolkit-label">Ops</span>
+                    <span class="toolkit-value">Linux, SSH, Docker, AWS</span>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Yanghao</p>
+        <p style="text-align: right;">Minimalist Template</p>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('theme-toggle');
+        const sun = document.getElementById('icon-sun');
+        const moon = document.getElementById('icon-moon');
+        const body = document.body;
+
+        // Function to apply theme
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                sun.style.display = 'block';
+                moon.style.display = 'none';
+            } else {
+                body.classList.remove('dark-mode');
+                sun.style.display = 'none';
+                moon.style.display = 'block';
+            }
+        }
+
+        // Initialize
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            applyTheme('light');
+        }
+
+        // Event Listener
+        btn.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                applyTheme('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                applyTheme('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+
+</html>
